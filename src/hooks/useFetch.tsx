@@ -12,7 +12,7 @@ function useFetch(url: string, options: Object, auto = false) {
       const json = await res.json();
       setResponse(json);
       setLoading(false);
-    } catch (error) {
+    } catch (error: any) {
       setLoading(false);
       setError(error);
     }
