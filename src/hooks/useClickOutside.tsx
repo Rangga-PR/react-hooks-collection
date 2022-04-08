@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect } from "react";
+import { RefObject, useEffect } from "react";
 
 const useClickOutside = (ref: RefObject<HTMLElement>, callback: Function) => {
   const handleClick = (e: MouseEvent) => {
@@ -14,3 +14,5 @@ const useClickOutside = (ref: RefObject<HTMLElement>, callback: Function) => {
     };
   });
 };
+
+export default useClickOutside;
