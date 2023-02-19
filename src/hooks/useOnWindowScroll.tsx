@@ -1,14 +1,17 @@
 import { useRef, useEffect } from "react";
 
 const useOnWindowScroll = (callback: () => void) => {
-  const listener = useRef(null);
+  const listener = useRef<EventListenerOrEventListenerObject | null | void>(
+    null
+  );
 
   useEffect(() => {
     if (listener.current)
       window.removeEventListener("scroll", listener.current);
     listener.current = window.addEventListener("scroll", callback);
     return () => {
-      window.removeEventListener("scroll", listener.current);
+      listener.current &&
+        window.removeEventListener("scroll", listener.current);
     };
   }, [callback]);
 };
