@@ -8,7 +8,9 @@ const useOnWindowScroll = (callback: () => void) => {
   useEffect(() => {
     if (listener.current)
       window.removeEventListener("scroll", listener.current);
-    listener.current = window.addEventListener("scroll", callback);
+    listener.current = window.addEventListener("scroll", callback, {
+      passive: true,
+    });
     return () => {
       listener.current &&
         window.removeEventListener("scroll", listener.current);
