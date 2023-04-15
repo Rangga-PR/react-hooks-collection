@@ -13,3 +13,5 @@ const useError = (err: Error) => {
 
   return dispatchError;
 };
+
+export default useError;
