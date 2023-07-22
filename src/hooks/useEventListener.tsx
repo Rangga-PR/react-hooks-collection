@@ -1,19 +1,24 @@
 import React, { useEffect } from "react";
 
+interface Option extends AddEventListenerOptions {
+  target: HTMLElement | Window | Document;
+}
+
 const useEventListener = (
   eventType: string,
   handler: Function,
-  elm = window
+  option: Option = { target: window }
 ) => {
   useEffect(() => {
+    const { target, ...restOption } = option;
     const listener = (e: Event) => handler(e);
 
-    elm.addEventListener(eventType, listener);
+    target.addEventListener(eventType, listener, restOption);
 
     return () => {
-      elm.removeEventListener(eventType, listener);
+      target.removeEventListener(eventType, listener, restOption);
     };
-  }, [eventType, handler, elm]);
+  }, [eventType, handler, option]);
 };
 
 export default useEventListener;
