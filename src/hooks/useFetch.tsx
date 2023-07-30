@@ -1,22 +1,30 @@
 import { useCallback, useEffect, useState } from "react";
 
-function useFetch(url: string, options: Object, auto = false) {
+interface Option extends RequestInit {
+  auto: false;
+}
+
+function useFetch(url: string, option: Option = { auto: false }) {
+  const { auto, ...requestOption } = option;
   const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<Error>();
   const [loading, setLoading] = useState(false);
 
   const fire = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch(url, options);
-      const json = await res.json();
-      setResponse(json);
+      const res = await fetch(url, requestOption);
+      if (res instanceof Error) setError(res);
+      else {
+        const json = await res.json();
+        setResponse(json);
+      }
+    } catch (error) {
+      if (error instanceof Error) setError(error);
+    } finally {
       setLoading(false);
-    } catch (error: any) {
-      setLoading(false);
-      setError(error);
     }
-  }, [url, options]);
+  }, [url, requestOption]);
 
   useEffect(() => {
     auto && fire();
