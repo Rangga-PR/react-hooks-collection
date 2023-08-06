@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 interface Option extends RequestInit {
-  auto: false;
+  auto: boolean;
 }
 
 function useFetch(url: string, option: Option = { auto: false }) {
