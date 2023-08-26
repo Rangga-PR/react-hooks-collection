@@ -10,11 +10,18 @@ function useFetch(url: string, option: Option = { auto: false }) {
   const [error, setError] = useState<Error>();
   const [loading, setLoading] = useState(false);
 
+  const controller = new AbortController();
+  const { signal, abort } = controller;
+
   const fire = useCallback(
     async (requestBody: BodyInit) => {
       try {
         setLoading(true);
-        const res = await fetch(url, { ...requestOption, body: requestBody });
+        const res = await fetch(url, {
+          ...requestOption,
+          body: requestBody,
+          signal,
+        });
         if (res instanceof Error) setError(res);
         else {
           const json = await res.json();
@@ -33,7 +40,7 @@ function useFetch(url: string, option: Option = { auto: false }) {
     auto && fire();
   }, [auto, fire]);
 
-  return { response, error, loading, fire };
+  return { response, error, loading, fire, abort };
 }
 
 export default useFetch;
