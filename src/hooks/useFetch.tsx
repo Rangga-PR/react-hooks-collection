@@ -38,6 +38,10 @@ function useFetch(url: string, option: Option = { auto: false }) {
 
   useEffect(() => {
     auto && fire();
+
+    return () => {
+      abort();
+    };
   }, [auto, fire]);
 
   return { response, error, loading, fire, abort };
