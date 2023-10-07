@@ -23,10 +23,7 @@ function useFetch(url: string, option: Option = { auto: false }) {
           signal,
         });
         if (res instanceof Error) setError(res);
-        else {
-          const json = await res.json();
-          setResponse(json);
-        }
+        else setResponse(res);
       } catch (error) {
         if (error instanceof Error) setError(error);
       } finally {
