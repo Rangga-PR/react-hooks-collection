@@ -5,7 +5,7 @@ interface ShareData {
   file?: File;
 }
 
-const useShareUrl = (data: ShareData) => {
+const useShare = (data: ShareData) => {
   async function share() {
     try {
       if (!navigator?.canShare) {
@@ -25,4 +25,4 @@ const useShareUrl = (data: ShareData) => {
   return { share };
 };
 
-export default useShareUrl;
+export default useShare;
