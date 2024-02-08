@@ -17,3 +17,5 @@ const useForm = (initialValues: FormValues = {}) => {
     },
   ];
 };
+
+export default useForm;
